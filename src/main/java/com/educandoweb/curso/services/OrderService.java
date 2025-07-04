@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.educandoweb.curso.entities.Order;
-import com.educandoweb.curso.repositories.OrderRepository;
+import com.educandoweb.course.entities.Order;
+import com.educandoweb.course.repositories.OrderRepository;
 
 @Service
 public class OrderService {

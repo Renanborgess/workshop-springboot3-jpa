@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educandoweb.curso.entities.Product;
-import com.educandoweb.curso.repositories.ProductRepository;
+import com.educandoweb.course.entities.Product;
+import com.educandoweb.course.repositories.ProductRepository;
 import com.educandoweb.curso.services.ProductService;
 
 @RestController

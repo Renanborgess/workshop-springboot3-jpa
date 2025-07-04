@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educandoweb.curso.entities.Category;
-import com.educandoweb.curso.repositories.CategoryRepository;
+import com.educandoweb.course.entities.Category;
+import com.educandoweb.course.repositories.CategoryRepository;
 import com.educandoweb.curso.services.CategoryService;
 
 @RestController
