@@ -1,4 +1,4 @@
-package com.educandoweb.curso.resources;
+package com.educandoweb.course.resources;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.educandoweb.course.entities.Product;
 import com.educandoweb.course.repositories.ProductRepository;
-import com.educandoweb.curso.services.ProductService;
+import com.educandoweb.course.services.ProductService;
 
 @RestController
 @RequestMapping(value = "/products")

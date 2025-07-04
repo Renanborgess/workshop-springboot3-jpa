@@ -1,4 +1,4 @@
-package com.educandoweb.curso.resources;
+package com.educandoweb.course.resources;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.educandoweb.course.entities.Category;
 import com.educandoweb.course.repositories.CategoryRepository;
-import com.educandoweb.curso.services.CategoryService;
+import com.educandoweb.course.services.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categorys")
@@ -36,5 +36,9 @@ public class CategoryResource {
 	public ResponseEntity<Category> findById(@PathVariable Long id){
 		Category obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
+	}
+
+	public CategoryRepository getCategoryRepository() {
+		return categoryRepository;
 	}
 }
