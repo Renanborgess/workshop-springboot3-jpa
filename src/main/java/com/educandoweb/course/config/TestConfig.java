@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.educandoweb.course.entities.Category;
 import com.educandoweb.course.entities.Order;
 import com.educandoweb.course.entities.OrderItem;
+import com.educandoweb.course.entities.Payment;
 import com.educandoweb.course.entities.Product;
 import com.educandoweb.course.entities.User;
 import com.educandoweb.course.entities.enums.OrderStatus;
@@ -19,6 +20,7 @@ import com.educandoweb.course.repositories.OrderItemRepository;
 import com.educandoweb.course.repositories.OrderRepository;
 import com.educandoweb.course.repositories.ProductRepository;
 import com.educandoweb.course.repositories.UserRepository;
+import com.educandoweb.course.resources.OrderResource;
 
 @Configuration
 @Profile("test")
@@ -38,10 +40,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private OrderItemRepository orderItemRepository;
-
+	
 	@Override
 	public void run(String... args) throws Exception {
-		
 		
 		Category cat1 = new Category(null, "Electronics");
 		Category cat2 = new Category(null, "Books");
@@ -81,5 +82,10 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 	}
 }
