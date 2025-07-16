@@ -4,40 +4,60 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.educandoweb.course.CursoApplication;
 import com.educandoweb.course.entities.User;
 import com.educandoweb.course.repositories.UserRepository;
+import com.educandoweb.course.resources.exceptions.DatabaseException;
+import com.educandoweb.course.resources.exceptions.ResourceExceptionHandler;
 import com.educandoweb.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
 
+    private final CursoApplication cursoApplication;
+
+    private final ResourceExceptionHandler resourceExceptionHandler;
+
 	@Autowired
-	private UserRepository repositoty;
+	private UserRepository repository;
+
+    UserService(ResourceExceptionHandler resourceExceptionHandler, CursoApplication cursoApplication) {
+        this.resourceExceptionHandler = resourceExceptionHandler;
+        this.cursoApplication = cursoApplication;
+    }
 	
 	public List<User> findAll(){
-		return repositoty.findAll();
+		return repository.findAll();
 	}
 	
 	public User findById(Long id) {
-		Optional<User> obj = repositoty.findById(id);
+		Optional<User> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
-		return repositoty.save(obj);
+		return repository.save(obj);
 	}
 	
-	public void delete(Long id) {
-		repositoty.deleteById(id);
+	public void delete(Long id){
+	    try {
+	        if(!repository.existsById(id)) throw new ResourceNotFoundException(id);
+	        repository.deleteById(id);
+	    }catch (ResourceNotFoundException e){
+	        throw new ResourceNotFoundException(id);
+	    }catch(DataIntegrityViolationException e) {
+	    	throw new DatabaseException(e.getMessage());
+	    }
 	}
 	
 	public User update(Long id, User obj) {
-		User entity = repositoty.getReferenceById(id);
+		User entity = repository.getReferenceById(id);
 		updateData(entity, obj);
-		return repositoty.save(entity);
+		return repository.save(entity);
 	}
 
 	private void updateData(User entity, User obj) {
